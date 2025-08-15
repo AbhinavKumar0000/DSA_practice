@@ -56,6 +56,61 @@ public:
         }
     }
 
+    void push_back(int val)
+    {
+        Node *newNode = new Node(val);
+        if (!head)
+        {
+            head = tail = newNode;
+            newNode->next = head;
+        }
+        else
+        {
+            tail->next = newNode;
+            tail = newNode;
+            tail->next = head;
+        }
+    }
+
+    void delete_at_head()
+    {
+        if (!head)
+            return;
+        Node *temp = head;
+        if (head == tail)
+        {
+            head = tail = nullptr;
+        }
+        else
+        {
+            head = head->next;
+            tail->next = head;
+        }
+        delete temp;
+    }
+
+    void delete_at_tail()
+    {
+        if (!head)
+            return;
+        Node *temp = tail;
+        if (head == tail)
+        {
+            head = tail = nullptr;
+        }
+        else
+        {
+            Node *current = head;
+            while (current->next != tail)
+            {
+                current = current->next;
+            }
+            current->next = head;
+            tail = current;
+        }
+        delete temp;
+    }
+
     void printList()
     {
         if (!head)
@@ -79,6 +134,13 @@ int main()
     cl.push_front(1);
     cl.push_front(2);
     cl.push_front(3);
+    cl.printList();
+    cl.push_back(4);
+    cl.push_back(5);
+    cl.printList();
+    cl.delete_at_head();
+    cl.printList();
+    cl.delete_at_tail();
     cl.printList();
     return 0;
 }
